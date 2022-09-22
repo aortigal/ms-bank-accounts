@@ -16,4 +16,8 @@ public interface ICuentaService {
 
     boolean delete(Integer id);
 
+    Cuenta fingByNumeroCuenta(String cuenta);
+
+    List<Cuenta> fingByCliente(Integer clienteId);
+
 }

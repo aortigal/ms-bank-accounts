@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CuentaServiceImpl implements ICuentaService {
@@ -51,5 +52,21 @@ public class CuentaServiceImpl implements ICuentaService {
     public boolean delete(Integer id) {
         cuentaRepository.deleteById(id);
         return true;
+    }
+
+    @Override
+    public Cuenta fingByNumeroCuenta(String numero) {
+         Optional<Cuenta> cuenta=cuentaRepository.findAll()
+                 .stream()
+                 .filter(c -> c.getNumero().equals(numero)).findFirst();
+        return cuenta.orElseGet(null);
+    }
+
+    @Override
+    public List<Cuenta> fingByCliente(Integer clienteId) {
+        return cuentaRepository.findAll()
+                .stream()
+                .filter(c -> c.getCliente().getClienteid().equals(clienteId)).collect(Collectors.toList());
+
     }
 }

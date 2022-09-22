@@ -53,7 +53,7 @@ public class CuentaController {
         return new ResponseEntity<Cuenta>(p, HttpStatus.CREATED);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable("id") Integer id, @RequestBody Cuenta cuenta){
         log.info("[INI] update Cuenta " + id);
 
@@ -77,5 +77,25 @@ public class CuentaController {
 
         log.info("[END] delete Cuenta " + id);
         return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/numero/{n}")
+    public ResponseEntity<Cuenta> fingByNumeroCuenta(@PathVariable("n") String n){
+        log.info("[INI] fingByNumeroCuenta Cuenta " + n);
+
+        Cuenta cuenta = cuentaService.fingByNumeroCuenta(n);
+
+        log.info("[END] fingByNumeroCuenta Cuenta " + n);
+        return new ResponseEntity<Cuenta>(cuenta, HttpStatus.OK);
+    }
+
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<List<Cuenta>> fingByCliente(@PathVariable("clienteId") Integer clienteId){
+        log.info("[INI] fingByCliente Cuenta " + clienteId);
+
+        List<Cuenta> cuentas = cuentaService.fingByCliente(clienteId);
+
+        log.info("[END] fingByCliente Cuenta " + clienteId);
+        return new ResponseEntity<List<Cuenta>>(cuentas, HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.nttdata.msbankaccounts.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.nttdata.msbankaccounts.enums.CuentaEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Cuenta {
 
     @Id
