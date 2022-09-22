@@ -1,5 +1,6 @@
 package com.nttdata.msbankaccounts.controllers;
 
+import com.nttdata.msbankaccounts.entity.Cliente;
 import com.nttdata.msbankaccounts.entity.Cuenta;
 import com.nttdata.msbankaccounts.services.ICuentaService;
 import com.nttdata.msbankaccounts.services.impl.CuentaServiceImpl;
@@ -40,10 +41,12 @@ public class CuentaController {
         return new ResponseEntity<Cuenta>(cuenta, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Cuenta> save(@RequestBody Cuenta cuenta){
+    @PostMapping("{id}")
+    public ResponseEntity<Cuenta> save(@PathVariable("id") Integer id, @RequestBody Cuenta cuenta){
         log.info("[INI] save Cuenta");
-
+        Cliente c = new Cliente();
+        c.setClienteid(id);
+        cuenta.setCliente(c);
         Cuenta p = cuentaService.save(cuenta);
 
         log.info("[END] save Cuenta");
