@@ -8,7 +8,7 @@ public interface ICuentaService {
 
     Cuenta save(Cuenta cuenta);
 
-    Cuenta update(Cuenta cuenta);
+    Cuenta update(Integer id, Cuenta cuenta);
 
     List<Cuenta> getListAll();
 

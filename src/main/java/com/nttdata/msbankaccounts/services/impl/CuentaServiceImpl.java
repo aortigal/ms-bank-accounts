@@ -3,6 +3,8 @@ package com.nttdata.msbankaccounts.services.impl;
 import com.nttdata.msbankaccounts.entity.Cuenta;
 import com.nttdata.msbankaccounts.repository.ICuentaRepository;
 import com.nttdata.msbankaccounts.services.ICuentaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class CuentaServiceImpl implements ICuentaService {
     @Autowired
     private ICuentaRepository cuentaRepository;
 
+    private static final Logger log = LoggerFactory.getLogger(CuentaServiceImpl.class);
 
     @Override
     public Cuenta save(Cuenta cuenta) {
@@ -22,8 +25,15 @@ public class CuentaServiceImpl implements ICuentaService {
     }
 
     @Override
-    public Cuenta update(Cuenta cuenta) {
-        return cuentaRepository.save(cuenta);
+    public Cuenta update(Integer id, Cuenta cuenta) {
+        log.info("findById "+ id);
+        Optional<Cuenta> c = cuentaRepository.findById(id);
+        if (c.isPresent()){
+            log.info("update "+ id);
+            return cuentaRepository.save(cuenta);
+        }
+        log.info("Account is not exist "+ id);
+        return null;
     }
 
     @Override
