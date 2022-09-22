@@ -32,4 +32,8 @@ public class Cuenta {
 
     @Column(name = "estado", nullable = false)
     private boolean estado;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false, foreignKey =@ForeignKey(name = "fk_cuenta_cliente"))
+    private Cliente cliente;
 }
